@@ -1,0 +1,19 @@
+{
+  "applications": {
+    "gecko": {
+      "strict_min_version": "58.0a1"
+    }
+  },
+  "background": {
+      "scripts": ["background.js"]
+  },
+  "description": "Very rough and ready tab colour changer based on URLs.",
+  "homepage_url": "https://github.com/parallax/envtab",
+  "manifest_version": 2,
+  "name": "EnvTabs",
+  "permissions": [
+    "tabs",
+    "theme"
+  ],
+  "version": "1.0"
+}
