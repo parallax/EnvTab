@@ -1,14 +1,15 @@
 /* global browser,URL */
 var theme = {
-  'images': {
-    'headerURL': ''
-  },
   'colors': {
-    'accentcolor': '#fff',
-    'textcolor': '#000',
-    'toolbar': 'rgba(255,0,0, 1)'
+    'accentcolor': 'rgba(22, 22, 22)',
+    'textcolor': 'black',
+    'popup': "#4a4a4f",
+    'popup_text': "rgb(249, 249, 250)",
+    'popup_border': "#27272b",
+    'toolbar_field_text': "black",
   }
 }
+
 
 browser.tabs.onActivated.addListener(async (activeInfo) => {
   await browser.tabs.get(activeInfo.tabId, async (tab) => {
@@ -16,15 +17,19 @@ browser.tabs.onActivated.addListener(async (activeInfo) => {
     host = host.hostname.toString()
     var tabColor = ''
     if (host.includes('.localhost') || host.includes('.expose.app') || host.includes('.local')) {
-      tabColor = 'rgb(0, 255, 0, 0.1)'
+      tabColor = '#C8E6C9'
     }
     if (host.includes('.qa.prlx.io') || host.includes('.qa.parall.ax')) {
-      tabColor = 'rgb(0, 0, 255, 0.1)'
+      tabColor = '#BBDEFB'
     }
     if (host.includes('.production.prlx.io') || host.includes('.exposecms.com') || host.includes('.prod.prlx.io')) {
-      tabColor = 'rgb(255, 0, 0, 0.1)'
+      tabColor = '#FFCCBC'
     }
-    theme.colors.toolbar = tabColor
-    await browser.theme.update(tab.windowId, theme)
+    theme.colors.accentcolor = tabColor
+    if (tabColor == '') {
+        await browser.theme.reset(tab.windowId)
+    } else {
+        await browser.theme.update(tab.windowId, theme)
+    }
   })
 })
